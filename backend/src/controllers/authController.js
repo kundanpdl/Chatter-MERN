@@ -102,5 +102,11 @@ export const logIn = async (req, res) => {
 
 export const logOut = (req, res) => {
   try {
-  } catch (error) {}
+    // Set cookie to expire as soon as user logs out.
+    res.cookie("jwtToken", "", { maxAge: 0 });
+    res.status(200).json("Logged out successfully");
+  } catch (error) {
+    console.log("Error in logout controller");
+    res.status(500).json("Internal Server Error", error.message);
+  }
 };
