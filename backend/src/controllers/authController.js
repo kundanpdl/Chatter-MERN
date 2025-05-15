@@ -57,10 +57,50 @@ export const signUp = async (req, res) => {
   }
 };
 
-export const logIn = (req, res) => {
-  res.send("Login Route");
+export const logIn = async (req, res) => {
+  const { email, password } = req.body;
+  try {
+    // If email or password not provided.
+    if (!email || !password) {
+      res.status(400).json({ message: "Both fields are required." });
+    }
+    // If password is shorter than 6 characters
+    if (password.length < 6) {
+      res.status(400).json({ message: "Invalid password length." });
+    }
+
+    // Find if user exists in the database
+    const user = await User.findOne(email);
+
+    // If user does not exist
+    if (!user) {
+      res.status(400).json({ message: "Invalid Email" });
+    }
+
+    // Compare the password that is provided with the one that is in the database.
+    const isCorrectPass = await bcrypt.compare(password, user.password);
+
+    // If password is not correct
+    if (!isCorrectPass) {
+      res.status(400).json({ message: "Invalid Password" });
+    }
+
+    // If password is correct, generate token.
+    generateToken(user._id, res);
+
+    // Return logged in users credentials
+    res.status(200).json({
+      _id: user._id,
+      email: user.email,
+      profilePic: user.profilePic,
+    });
+  } catch (error) {
+    console.log("Error in login controller:");
+    res.status(500).json({ message: "Internal Server Error" });
+  }
 };
 
 export const logOut = (req, res) => {
-  res.send("Logout Route");
+  try {
+  } catch (error) {}
 };
