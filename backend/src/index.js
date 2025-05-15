@@ -10,6 +10,7 @@ const PORT = process.env.PORT;
 
 console.log(process.env.MONGO_URI);
 
+app.use(express.json()); // Allows us to use json data from the models/ db
 app.use("/api/auth", authRoutes);
 
 app.listen(PORT || 8000, () => {
