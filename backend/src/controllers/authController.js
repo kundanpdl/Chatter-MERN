@@ -1,6 +1,7 @@
 import { generateToken } from "../lib/utils.js";
 import User from "../models/userModel.js";
 import bcrypt from "bcryptjs";
+import cloudinary from "../lib/cloudinary.js";
 
 export const signUp = async (req, res) => {
   const { fullName, email, password } = req.body; // app.use(express.json()) in index.js lets us do this.
@@ -70,7 +71,7 @@ export const logIn = async (req, res) => {
     }
 
     // Find if user exists in the database
-    const user = await User.findOne(email);
+    const user = await User.findOne({ email });
 
     // If user does not exist
     if (!user) {
@@ -95,7 +96,7 @@ export const logIn = async (req, res) => {
       profilePic: user.profilePic,
     });
   } catch (error) {
-    console.log("Error in login controller:");
+    console.log("Error in login controller:", error.message);
     res.status(500).json({ message: "Internal Server Error" });
   }
 };
@@ -108,5 +109,56 @@ export const logOut = (req, res) => {
   } catch (error) {
     console.log("Error in logout controller");
     res.status(500).json("Internal Server Error", error.message);
+  }
+};
+
+export const editProfile = async (req, res) => {
+  try {
+    // Get profile picture and userId from client
+    const { profilePic } = req.body;
+    const userId = req.user._id;
+    // Check for existence of picture
+    if (!profilePic) {
+      res.status(400).json("Profile pic is required.");
+    }
+    // Get upload response after uploading the image
+    const uploadResponse = await cloudinary.uploader.upload(profilePic);
+    // Find the user and update their picture
+    // Set new:true so that updated picture will be displayed
+    const updatedUser = await User.findByIdAndUpdate(
+      userId,
+      { profilePic: uploadResponse.secure_url },
+      { new: true }
+    );
+    // Success status
+    res.status(200).json(updatedUser);
+  } catch (error) {
+    // Error
+    console.log("Error in editProfile", error);
+    res.status(500).json("Internal Server Error");
+  }
+};
+
+export const checkUser = (req, res) => {
+  try {
+    // req contains user data if they are logged in
+    // If user is nof found, show error message
+    if (!req.user) {
+      return res.status(401).json("Not authenticated");
+    }
+
+    // Userdata json for display
+    const userData = {
+      id: req.user._id,
+      fullName: req.user.fullName,
+      email: req.user.email,
+      // Excluded password
+    };
+    // Success if user found
+    res.status(200).json(userData);
+  } catch (error) {
+    // Error
+    console.error("Error in checking user authentication", error);
+    res.status(500).json("Internal Server Error");
   }
 };
