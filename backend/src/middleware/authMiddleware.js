@@ -1,15 +1,15 @@
-import jwtToken from "jsonwebtoken";
+import jwt from "jsonwebtoken";
 import User from "../models/userModel.js";
 
 export const checkAuth = async (req, res, next) => {
   try {
     // Try to check if token exist in cookies.
-    const token = req.cookies.jwtToken;
+    const token = req.cookies.jwt;
     if (!token) {
       res.status(401).json("Unauthorized");
     }
     // Decoding the token using the JWT secret we have in our env file.
-    const decodedToken = jwtToken.verify(token, process.env.JWT_SECRET);
+    const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
     // If no decoded token, then return error.
     if (!decodedToken) {
       res.status(400).json("Unauthorized: Invalid Token");

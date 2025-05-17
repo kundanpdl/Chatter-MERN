@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import axiosInstance from "../lib/axios.js";
+import { axiosInstance } from "../lib/axios.js";
 
 // Callback function returns object
 export const authStore = create((set) => ({
@@ -17,7 +17,7 @@ export const authStore = create((set) => ({
     } catch (error) {
       // If error encountered, update state with null.
       // Clears existing user, if any.
-      console.log("Error in checkAuth:", error);
+      console.log("Error in checkUser:", error);
       set({ authUser: null });
     } finally {
       // Checking authentication is set to false if pass/fail.
@@ -26,3 +26,5 @@ export const authStore = create((set) => ({
     }
   },
 }));
+
+export const signUp = async (data) => {};

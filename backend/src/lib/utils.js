@@ -9,7 +9,7 @@ export const generateToken = (userId, res) => {
   });
 
   // Creating a cookie with max age of 7 days.
-  res.cookie("jwtToken", token, {
+  res.cookie("jwt", token, {
     maxAge: 7 * 24 * 60 * 60 * 1000, // MaxAge needs to be in miliseconds.
     httpOnly: true, // To prevent XSS attacks. Make cookie not accessible to javascript.
     sameSite: "strict", // Cookie only sent with same site, no other site can send cookies.

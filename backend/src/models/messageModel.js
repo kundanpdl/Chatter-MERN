@@ -1,4 +1,4 @@
-import mongoose, { Schema } from "mongoose";
+import mongoose from "mongoose";
 
 const messageSchma = mongoose.Schema(
   // senderId and receiverID will be referencing User
