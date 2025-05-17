@@ -8,14 +8,20 @@ export const authStore = create((set) => ({
   checkingLogin: false,
   updatingProfile: false,
   checkingAuth: true, // Check authentication as soon as we refresh application
-  checkUser: async (req, res) => {
+  checkUser: async () => {
     try {
+      // Get request to request data from /check.
       const res = await axiosInstance.get("/auth/check");
+      // If success, set authUSer with the response data.
       set({ authUser: res.data });
     } catch (error) {
+      // If error encountered, update state with null.
+      // Clears existing user, if any.
       console.log("Error in checkAuth:", error);
       set({ authUser: null });
     } finally {
+      // Checking authentication is set to false if pass/fail.
+      // If set to true, page should display page-loading animation or something to that effect.
       set({ checkingAuth: false });
     }
   },
