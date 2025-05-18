@@ -21,7 +21,7 @@ router.post("/login", logIn);
 router.post("/logout", logOut);
 
 // checkAuth is for checking if user is authenticated before giving access to edit the profile.
-router.post("/edit-profile", checkAuth, editProfile);
+router.put("/edit-profile", checkAuth, editProfile);
 
 // checkUser is used to check if user is authenticated after refreshing the application.
 router.get("/check", checkAuth, checkUser);

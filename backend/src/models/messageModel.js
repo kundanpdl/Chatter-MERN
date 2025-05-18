@@ -19,7 +19,7 @@ const messageSchma = mongoose.Schema(
       type: String,
     },
     image: {
-      type: String,
+      type: String, // Because we are saving urls here, images themselves are saved to cloudinary.
     },
   },
   {

@@ -11,7 +11,7 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT;
 
-app.use(express.json()); // Allows us to use json data from the models/ db
+app.use(express.json()); // Allows us to use json data from the req.body
 app.use(cookieParser());
 app.use("/api/auth", authRoutes);
 app.use("/api/message", messageRoute);

@@ -67,7 +67,7 @@ export const logIn = async (req, res) => {
     }
     // If password is shorter than 6 characters
     if (password.length < 6) {
-      res.status(400).json({ message: "Invalid password length." });
+      res.status(401).json({ message: "Invalid password length." });
     }
 
     // Find if user exists in the database
@@ -75,7 +75,7 @@ export const logIn = async (req, res) => {
 
     // If user does not exist
     if (!user) {
-      res.status(400).json({ message: "Invalid Email" });
+      res.status(401).json({ message: "Invalid Email" });
     }
 
     // Compare the password that is provided with the one that is in the database.
@@ -83,7 +83,7 @@ export const logIn = async (req, res) => {
 
     // If password is not correct
     if (!isCorrectPass) {
-      res.status(400).json({ message: "Invalid Password" });
+      res.status(401).json({ message: "Invalid Password" });
     }
 
     // If password is correct, generate token.
@@ -104,7 +104,7 @@ export const logIn = async (req, res) => {
 export const logOut = (req, res) => {
   try {
     // Set cookie to expire as soon as user logs out.
-    res.cookie("jwtToken", "", { maxAge: 0 });
+    res.cookie("jwt", "", { maxAge: 0 });
     res.status(200).json("Logged out successfully");
   } catch (error) {
     console.log("Error in logout controller");
