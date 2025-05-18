@@ -14,5 +14,5 @@ router.get("/users", checkAuth, usersSidebar);
 // To get messages using userId and checking authentication
 router.get("/:id", checkAuth, getMessages);
 
-router.post("/:id", checkAuth, sendMessages);
+router.post("/send/:id", checkAuth, sendMessages);
 export default router;

@@ -21,7 +21,7 @@ export const usersSidebar = async (req, res) => {
 
 export const getMessages = async (req, res) => {
   try {
-    // The user on the other end.
+    // The user on the other end. Extracted from the URL. "api/messages/:id"
     const { id: userToChat } = req.params;
     // Currently logged in user.
     const senderId = req.user._id;
