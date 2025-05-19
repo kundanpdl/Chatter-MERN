@@ -4,9 +4,9 @@ import {
   logIn,
   logOut,
   editProfile,
-  checkUser,
+  checkAuth,
 } from "../controllers/authController.js";
-import { checkAuth } from "../middleware/authMiddleware.js";
+import { routeProtect } from "../middleware/authMiddleware.js";
 
 const router = express.Router();
 
@@ -21,9 +21,9 @@ router.post("/login", logIn);
 router.post("/logout", logOut);
 
 // checkAuth is for checking if user is authenticated before giving access to edit the profile.
-router.put("/edit-profile", checkAuth, editProfile);
+router.put("/edit-profile", routeProtect, editProfile);
 
 // checkUser is used to check if user is authenticated after refreshing the application.
-router.get("/check", checkAuth, checkUser);
+router.get("/check", routeProtect, checkAuth);
 
 export default router;

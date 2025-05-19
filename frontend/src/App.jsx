@@ -13,6 +13,8 @@ const App = () => {
   // Destructure states from zustand store.
   const { authUser, checkUser, checkingAuth } = authStore();
 
+  // Automatically checking users authentication status
+  // as soon as the application is launched.
   useEffect(() => {
     checkUser();
   }, [checkUser]);

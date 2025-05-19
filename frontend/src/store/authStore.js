@@ -10,9 +10,11 @@ export const authStore = create((set) => ({
   checkingAuth: true, // Check authentication as soon as we refresh application
   checkUser: async () => {
     try {
-      // Get request to request data from /check.
+      // Get request to request data from /check from the backend.
+      // Checks if user is signed in.
       const res = await axiosInstance.get("/auth/check");
       // If success, set authUSer with the response data.
+      // Here, if API returns data, the authUser gets updated.
       set({ authUser: res.data });
     } catch (error) {
       // If error encountered, update state with null.

@@ -1,7 +1,7 @@
 import jwt from "jsonwebtoken";
 import User from "../models/userModel.js";
 
-export const checkAuth = async (req, res, next) => {
+export const routeProtect = async (req, res, next) => {
   try {
     // Try to check if token exist in cookies.
     const token = req.cookies.jwt;

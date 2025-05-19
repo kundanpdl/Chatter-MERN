@@ -139,7 +139,7 @@ export const editProfile = async (req, res) => {
   }
 };
 
-export const checkUser = (req, res) => {
+export const checkAuth = (req, res) => {
   try {
     // req contains user data if they are logged in
     // If user is nof found, show error message
