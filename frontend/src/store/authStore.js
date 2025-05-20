@@ -1,5 +1,6 @@
 import { create } from "zustand";
 import { axiosInstance } from "../lib/axios.js";
+import toast from "react-hot-toast";
 
 // Callback function returns object
 export const authStore = create((set) => ({
@@ -27,6 +28,16 @@ export const authStore = create((set) => ({
       set({ checkingAuth: false });
     }
   },
+  signUp: async (data) => {
+    try {
+      set({ checkingSignup: true });
+      const res = await axiosInstance.post("/auth/signup", data);
+      set({ authUser: res.data });
+      toast.success("User Created Successfully");
+    } catch (error) {
+      toast.error(error.response.data.message);
+    } finally {
+      set({ checkingSignup: false });
+    }
+  },
 }));
-
-export const signUp = async (data) => {};

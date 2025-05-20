@@ -20,10 +20,10 @@ router.post("/login", logIn);
 // Logout route
 router.post("/logout", logOut);
 
-// checkAuth is for checking if user is authenticated before giving access to edit the profile.
+// routeProtect is for checking if user is authenticated before giving access to edit the profile.
 router.put("/edit-profile", routeProtect, editProfile);
 
-// checkUser is used to check if user is authenticated after refreshing the application.
+// checkAuth is used to check if user is authenticated after refreshing the application.
 router.get("/check", routeProtect, checkAuth);
 
 export default router;

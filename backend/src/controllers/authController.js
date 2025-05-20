@@ -155,10 +155,10 @@ export const checkAuth = (req, res) => {
       // Excluded password
     };
     // Success if user found
-    res.status(200).json(userData);
+    return res.status(200).json(userData);
   } catch (error) {
     // Error
     console.error("Error in checking user authentication", error);
-    res.status(500).json("Internal Server Error");
+    return res.status(500).json("Internal Server Error");
   }
 };

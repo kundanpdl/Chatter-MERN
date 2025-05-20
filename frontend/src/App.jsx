@@ -8,6 +8,7 @@ import ProfilePage from "./pages/ProfilePage";
 import { authStore } from "./store/authStore";
 import { useEffect } from "react";
 import { Loader } from "lucide-react";
+import { Toaster } from "react-hot-toast";
 
 const App = () => {
   // Destructure states from zustand store.
@@ -37,7 +38,7 @@ const App = () => {
           element={authUser ? <HomePage /> : <Navigate to="/login" replace />}
         />
         <Route
-          path="/sign-up"
+          path="/signup"
           element={!authUser ? <SignUpPage /> : <Navigate to="/" replace />}
         />
         <Route
@@ -57,6 +58,8 @@ const App = () => {
           }
         />
       </Routes>
+
+      <Toaster />
     </div>
   );
 };
