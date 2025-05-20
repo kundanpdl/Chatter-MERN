@@ -40,8 +40,8 @@ const SignUpPage = () => {
   };
 
   return (
-    <div>
-      <div>
+    <div className="max-w-screen-md">
+      <div className="justify-center">
         <div>
           <div>
             <div>
@@ -64,7 +64,7 @@ const SignUpPage = () => {
                 </div>
                 <input
                   type="text"
-                  placeholder="John Doe"
+                  placeholder="Your Name"
                   value={formData.fullName}
                   onChange={(e) =>
                     setFormData({ ...formData, fullName: e.target.value })
