@@ -146,16 +146,8 @@ export const checkAuth = (req, res) => {
     if (!req.user) {
       return res.status(401).json("Not authenticated");
     }
-
-    // Userdata json for display
-    const userData = {
-      id: req.user._id,
-      fullName: req.user.fullName,
-      email: req.user.email,
-      // Excluded password
-    };
     // Success if user found
-    return res.status(200).json(userData);
+    return res.status(200).json(req.user);
   } catch (error) {
     // Error
     console.error("Error in checking user authentication", error);
