@@ -9,6 +9,7 @@ export const authStore = create((set) => ({
   checkingLogin: false,
   updatingProfile: false,
   checkingAuth: true, // Check authentication as soon as we refresh application
+  onlineUsers: [],
   checkUser: async () => {
     try {
       // Get request to request data from /check from the backend.

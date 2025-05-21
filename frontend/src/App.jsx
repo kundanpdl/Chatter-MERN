@@ -9,6 +9,7 @@ import { authStore } from "./store/authStore";
 import { useEffect } from "react";
 import { Loader } from "lucide-react";
 import { Toaster } from "react-hot-toast";
+import { themeStore } from "./store/themeStore";
 
 const App = () => {
   // Destructure states from zustand store.
@@ -20,6 +21,8 @@ const App = () => {
     checkUser();
   }, [checkUser]);
 
+  const { theme } = themeStore();
+
   console.log("authuser:", authUser);
 
   if (checkingAuth && !authUser)
@@ -30,7 +33,7 @@ const App = () => {
     );
 
   return (
-    <div>
+    <div data-theme={theme}>
       <Navbar />
       <Routes>
         <Route
