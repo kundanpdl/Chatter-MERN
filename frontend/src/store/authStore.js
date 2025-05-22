@@ -3,13 +3,14 @@ import { axiosInstance } from "../lib/axios.js";
 import toast from "react-hot-toast";
 
 // Callback function returns object
-export const authStore = create((set) => ({
+export const authStore = create((set, get) => ({
   authUser: null, // User could be or not be authenticated initially
   checkingSignup: false,
   checkingLogin: false,
   updatingProfile: false,
   checkingAuth: true, // Check authentication as soon as we refresh application
   onlineUsers: [],
+  socket: null,
   checkUser: async () => {
     try {
       // Get request to request data from /check from the backend.
@@ -47,6 +48,7 @@ export const authStore = create((set) => ({
       const res = await axiosInstance.post("/auth/login", data);
       set({ authUser: res.data });
       toast.success("Logged In Successfully");
+      get().connectSocket();
     } catch (error) {
       toast.error("Something Went Wrong");
     } finally {
@@ -75,4 +77,5 @@ export const authStore = create((set) => ({
       set({ updatingProfile: false });
     }
   },
+  connectSocket: () => {},
 }));

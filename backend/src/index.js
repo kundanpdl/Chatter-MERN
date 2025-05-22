@@ -5,10 +5,10 @@ import { dbConnect } from "./lib/db.js";
 import cookieParser from "cookie-parser";
 import messageRoute from "./routes/messageRoute.js";
 import cors from "cors";
+import { app, server } from "./lib/socket.js";
 
 dotenv.config();
 
-const app = express();
 const PORT = process.env.PORT;
 
 app.use(express.json()); // Allows us to use json data from the req.body
@@ -23,7 +23,7 @@ app.use(
 app.use("/api/auth", authRoutes);
 app.use("/api/messages", messageRoute);
 
-app.listen(PORT || 8000, () => {
+server.listen(PORT || 8000, () => {
   dbConnect();
   console.log("Server live on port: ", PORT);
 });
