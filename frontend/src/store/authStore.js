@@ -1,6 +1,9 @@
 import { create } from "zustand";
 import { axiosInstance } from "../lib/axios.js";
 import toast from "react-hot-toast";
+import { io } from "socket.io-client";
+
+const BASE_URL = "http://localhost:8000";
 
 // Callback function returns object
 export const authStore = create((set, get) => ({
@@ -19,6 +22,7 @@ export const authStore = create((set, get) => ({
       // If success, set authUSer with the response data.
       // Here, if API returns data, the authUser gets updated.
       set({ authUser: res.data });
+      get().connectSocket();
     } catch (error) {
       // If error encountered, update state with null.
       // Clears existing user, if any.
@@ -36,6 +40,7 @@ export const authStore = create((set, get) => ({
       const res = await axiosInstance.post("/auth/signup", data);
       set({ authUser: res.data });
       toast.success("User Created Successfully");
+      get().connectSocket();
     } catch (error) {
       toast.error(error.response.data.message);
     } finally {
@@ -60,6 +65,7 @@ export const authStore = create((set, get) => ({
       const res = await axiosInstance.post("/auth/logout");
       set({ authUser: null });
       toast.success("Logged Out Successfully");
+      get().disconnectSocket();
     } catch (error) {
       toast.error("Something Went Wrong");
     }
@@ -77,5 +83,22 @@ export const authStore = create((set, get) => ({
       set({ updatingProfile: false });
     }
   },
-  connectSocket: () => {},
+  connectSocket: () => {
+    const { authUser } = get();
+    if (!authUser || get().socket?.connected) return;
+    const socket = io(BASE_URL, {
+      query: {
+        userId: authUser._id,
+      },
+    });
+    socket.connect();
+    set({ socket: socket });
+
+    socket.on("getOnlineUsers", (userIds) => {
+      set({ onlineUsers: userIds });
+    });
+  },
+  disconnectSocket: () => {
+    if (get().socket?.connected) get().socket.disconnect();
+  },
 }));
