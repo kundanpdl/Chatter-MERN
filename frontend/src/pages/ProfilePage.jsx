@@ -1,7 +1,7 @@
 import { authStore } from "../store/authStore";
 import { Camera, Mail, User } from "lucide-react";
 import { useState } from "react";
-import proPic from "../avatar.png";
+import proPic from "../public/avatar.png";
 
 const ProfilePage = () => {
   const { authUser, updatingProfile, updateProfile } = authStore();

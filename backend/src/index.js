@@ -19,6 +19,7 @@ app.use(
     credentials: true,
   })
 );
+
 app.use("/api/auth", authRoutes);
 app.use("/api/messages", messageRoute);
 
