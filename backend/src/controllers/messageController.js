@@ -1,6 +1,7 @@
 import User from "../models/userModel.js";
 import Message from "../models/messageModel.js";
 import { v2 as cloudinary } from "cloudinary";
+import { getReceiverSocketId, io } from "../lib/socket.js";
 
 export const usersSidebar = async (req, res) => {
   try {
@@ -47,6 +48,12 @@ export const sendMessages = async (req, res) => {
     // Get text, image, and sender+reeiver Id from the req/client
     const { text, image } = req.body;
     const { id: receiverId } = req.params;
+
+    if (!req.user || !req.user._id) {
+      return res
+        .status(401)
+        .json({ message: "Unauthorized: Sender not found" });
+    }
     const senderId = req.user._id;
 
     // Upload image to cloudinary and get image url as response.
@@ -67,11 +74,17 @@ export const sendMessages = async (req, res) => {
     // Save message and image to db
     await newMessage.save();
 
+    const receiverSocketID = getReceiverSocketId(receiverId);
+
+    if (receiverSocketID) {
+      io.to(receiverSocketID).emit("newMessage", newMessage);
+    }
+
     // Success
     res.status(201).json(newMessage);
   } catch (error) {
     // Error
     console.log("Error in sendMessages controller", error.message);
-    req.status(500).json("Internal Server Error");
+    res.status(500).json("Internal Server Error");
   }
 };
