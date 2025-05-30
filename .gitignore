@@ -1,6 +1,0 @@
-## Folders
-backend/src/node_modules
-backend/node_modules
-
-## Env
-backend/.env
