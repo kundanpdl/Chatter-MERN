@@ -7,12 +7,10 @@ import {
   Loader2,
   Lock,
   Mail,
-  MessageSquare,
+  MessagesSquare,
   User,
 } from "lucide-react";
 import toast from "react-hot-toast";
-// import AuthImagePattern from "../components/AuthImagePattern";
-// import toast from "react-hot-toast";
 
 const SignUpPage = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -40,31 +38,34 @@ const SignUpPage = () => {
   };
 
   return (
-    <div className="max-w-screen-md">
-      <div className="justify-center">
-        <div>
-          <div>
-            <div>
-              <div>
-                <MessageSquare className="size-6 text-primary" />
+    <div className="h-screen grid mt-300">
+      <div className="flex flex-col justify-center items-center p-6 sm:p-12">
+        <div className="w-full max-w-md space-y-8">
+          <div className="text-center mb-8">
+            <div className="flex flex-col items-center gap-2 group">
+              <div
+                className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center group-hover:bg-primary/20
+              transition-colors"
+              >
+                <MessagesSquare className="w-6 h-6 text-primary" />
               </div>
-              <h1>Create Account</h1>
-              <p>Get started with your free account</p>
+              <h1>Create Your Free Account</h1>
             </div>
           </div>
 
-          <form onSubmit={handleSubmit}>
-            <div>
-              <label>
-                <span>Full Name</span>
+          <form onSubmit={handleSubmit} className="space-y-6">
+            <div className="form-control">
+              <label className="label">
+                <span className="label-text font-medium">Full Name</span>
               </label>
-              <div>
-                <div>
-                  <User />
+              <div className="relative">
+                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                  <User className="size-5 text-base-content/40" />
                 </div>
                 <input
                   type="text"
                   placeholder="Your Name"
+                  className={`input input-bordered w-full pl-10`}
                   value={formData.fullName}
                   onChange={(e) =>
                     setFormData({ ...formData, fullName: e.target.value })
@@ -73,17 +74,18 @@ const SignUpPage = () => {
               </div>
             </div>
 
-            <div>
-              <label>
-                <span>Email</span>
+            <div className="form-control">
+              <label className="label">
+                <span className="label-text font-medium">Email</span>
               </label>
-              <div>
-                <div>
-                  <Mail />
+              <div className="relative">
+                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                  <Mail className="size-5 text-base-content/40" />
                 </div>
                 <input
                   type="email"
                   placeholder="you@example.com"
+                  className={`input input-bordered w-full pl-10`}
                   value={formData.email}
                   onChange={(e) =>
                     setFormData({ ...formData, email: e.target.value })
@@ -104,6 +106,7 @@ const SignUpPage = () => {
                   type={showPassword ? "text" : "password"}
                   placeholder="••••••••"
                   value={formData.password}
+                  className={`input input-bordered w-full pl-10`}
                   onChange={(e) =>
                     setFormData({ ...formData, password: e.target.value })
                   }
