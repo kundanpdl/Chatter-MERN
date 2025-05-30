@@ -6,10 +6,14 @@ import cookieParser from "cookie-parser";
 import messageRoute from "./routes/messageRoute.js";
 import cors from "cors";
 import { app, server } from "./lib/socket.js";
+import bodyParser from "body-parser";
 
 dotenv.config();
 
 const PORT = process.env.PORT;
+
+app.use(bodyParser.json({ limit: "15mb" }));
+app.use(bodyParser.urlencoded({ extended: true, limit: "15mb" }));
 
 app.use(express.json()); // Allows us to use json data from the req.body
 app.use(cookieParser());

@@ -5,6 +5,7 @@ import ChatInput from "./ChatInput";
 import MessageSkeleton from "./skeletons/MessageSkeleton";
 import { authStore } from "../store/authStore";
 import { formatMessageTime } from "../lib/utils";
+import proPic from "../public/avatar.png";
 
 const ChatContainer = () => {
   const {
@@ -60,8 +61,8 @@ const ChatContainer = () => {
                 <img
                   src={
                     message.senderId === authUser._id
-                      ? authUser.profilePic || "/avatar.png"
-                      : selectedUser.profilePic || "/avatar.png"
+                      ? authUser.profilePic || proPic
+                      : selectedUser.profilePic || proPic
                   }
                   alt="profile pic"
                 />
