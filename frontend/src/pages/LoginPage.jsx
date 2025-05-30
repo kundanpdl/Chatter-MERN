@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { authStore } from "../store/authStore";
-import { Eye, EyeOff, Loader2, Lock, Mail, MessageSquare } from "lucide-react";
+import { Eye, EyeOff, Loader2, Lock, Mail, MessagesSquare } from "lucide-react";
 import { Link } from "react-router-dom";
 
 const LoginPage = () => {
@@ -15,16 +15,18 @@ const LoginPage = () => {
     login(formData);
   };
   return (
-    <div>
-      <div>
-        <div>
-          <div>
-            <div>
-              <div>
-                <MessageSquare className="w-6 h-6 text-primary" />
+    <div className="h-screen grid">
+      <div className="flex flex-col justify-center items-center p-6 sm:p-12">
+        <div className="w-full max-w-md space-y-8">
+          <div className="text-center mb-8">
+            <div className="flex flex-col items-center gap-2 group">
+              <div
+                className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center group-hover:bg-primary/20
+              transition-colors"
+              >
+                <MessagesSquare className="w-6 h-6 text-primary" />
               </div>
-              <h1>Welcome Back</h1>
-              <p>Sign in to your account</p>
+              <p>Welcome Back!</p>
             </div>
           </div>
 
