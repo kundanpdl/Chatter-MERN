@@ -31,13 +31,13 @@ const LoginPage = () => {
           </div>
 
           {/* Form */}
-          <form onSubmit={handleSubmit}>
-            <div>
-              <label>
-                <span>Email</span>
+          <form onSubmit={handleSubmit} className="space-y-6">
+            <div className="form-control">
+              <label className="label">
+                <span className="label-text font-medium">Email</span>
               </label>
-              <div>
-                <div>
+              <div className="relative">
+                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                   <Mail className="h-5 w-5 text-base-content/40" />
                 </div>
                 <input
@@ -52,12 +52,12 @@ const LoginPage = () => {
               </div>
             </div>
 
-            <div>
-              <label>
-                <span>Password</span>
+            <div className="form-control">
+              <label className="label">
+                <span className="label-text font-medium">Password</span>
               </label>
-              <div>
-                <div>
+              <div className="relative">
+                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                   <Lock className="h-5 w-5 text-base-content/40" />
                 </div>
                 <input
@@ -71,6 +71,7 @@ const LoginPage = () => {
                 />
                 <button
                   type="button"
+                  className="absolute inset-y-0 right-0 pr-3 flex items-center"
                   onClick={() => setShowPassword(!showPassword)}
                 >
                   {showPassword ? (
